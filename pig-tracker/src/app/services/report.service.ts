@@ -9,6 +9,7 @@ export class ReportService {
   reports = new Map<string, Report>();
 
   constructor() {
+    // temp data
     let pig = { pig_name: 'Liam', pig_breed: Breed_enum.FuzzyPig };
     let person = { person_name: 'John', phone_number: '123' };
     let location = { longitude: 0, latitude: 0, location_name: 'Thorne' };
@@ -33,6 +34,11 @@ export class ReportService {
   // return report if successfully deleted
   // return null if report is not found
   delete(report: Report): Report | null {
+    if (this.find_report(report)) {
+      this.reports.delete(report.report_id);
+      console.log('Successfully deleted');
+      return report;
+    }
     return null;
   }
 
@@ -42,9 +48,10 @@ export class ReportService {
     return null;
   }
 
-  // return index of report if found
-  // returns null if report is not found
-  private find_report(report: Report): number | null {
-    return null;
+  // return true if found
+  // returns false if report is not found
+  private find_report(report: Report): boolean {
+    if (this.reports.has(report.report_id)) return true;
+    return false;
   }
 }

@@ -16,7 +16,7 @@ export class ReportListComponent implements OnInit {
   constructor(private rs: ReportService, private info: MatDialog) {}
 
   ngOnInit(): void {
-    this.reports = this.rs.get_all_reports();
+    this.refresh_reports();
     console.log(this.reports);
   }
 
@@ -26,11 +26,11 @@ export class ReportListComponent implements OnInit {
     if (!error) {
       // Do something with the error
     }
+    this.refresh_reports();
   }
 
   get_info(report: Report): void {
-    // send a route to the modal
-    // console.log(report);
+    // display modal comp using MatDialog service
     this.info.open(MoreInfoComponent, {
       data: report,
     });
@@ -41,5 +41,9 @@ export class ReportListComponent implements OnInit {
     if (!error) {
       // Do something with error
     }
+  }
+
+  private refresh_reports(): void {
+    this.reports = this.rs.get_all_reports();
   }
 }
