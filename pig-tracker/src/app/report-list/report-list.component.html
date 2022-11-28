@@ -1,0 +1,12 @@
+<p>Welcome!</p>
+<ul>
+  <li *ngFor="let report of reports | keyvalue">
+    <p>{{ report.value.person.person_name }}</p>
+    <p>{{ report.value.person.phone_number }}</p>
+    <p>{{ report.value.pig.pig_name }}</p>
+    <p>{{ report.value.pig.pig_breed }}</p>
+    <p>{{ report.value.report_id }}</p>
+    <p>{{ report.value.status }}</p>
+    <button (click)="get_info(report.value)">MORE INFO</button>
+  </li>
+</ul>
