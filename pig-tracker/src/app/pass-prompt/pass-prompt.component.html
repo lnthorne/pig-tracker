@@ -1,0 +1,12 @@
+<p>pass-prompt works!</p>
+<form [formGroup]="passwd_form">
+  <fieldset>
+    <input
+      type="text"
+      name="passwd"
+      placeholder="Enter your password"
+      required
+    />
+    <button [disabled]="!passwd_form.valid">VALIDATE</button>
+  </fieldset>
+</form>

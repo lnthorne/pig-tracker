@@ -6,10 +6,23 @@ import { AppComponent } from './app.component';
 import { ReportListComponent } from './report-list/report-list.component';
 import { MoreInfoComponent } from './more-info/more-info.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PassPromptComponent } from './pass-prompt/pass-prompt.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, ReportListComponent, MoreInfoComponent],
-  imports: [BrowserModule, AppRoutingModule, MatDialogModule],
+  declarations: [
+    AppComponent,
+    ReportListComponent,
+    MoreInfoComponent,
+    PassPromptComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

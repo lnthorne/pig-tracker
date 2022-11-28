@@ -2,6 +2,7 @@ import { Component, OnInit, Output } from '@angular/core';
 import { Report } from '../models/report.model';
 import { ReportService } from '../services/report.service';
 import { MoreInfoComponent } from '../more-info/more-info.component';
+import { PassPromptComponent } from '../pass-prompt/pass-prompt.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -13,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class ReportListComponent implements OnInit {
   reports = new Map<string, Report>();
 
-  constructor(private rs: ReportService, private info: MatDialog) {}
+  constructor(private rs: ReportService, private dialogRef: MatDialog) {}
 
   ngOnInit(): void {
     this.refresh_reports();
@@ -22,6 +23,7 @@ export class ReportListComponent implements OnInit {
 
   delete(report: Report): void {
     // get passwd and check
+    this.dialogRef.open(PassPromptComponent);
     const error = this.rs.delete(report);
     if (!error) {
       // Do something with the error
@@ -31,7 +33,7 @@ export class ReportListComponent implements OnInit {
 
   get_info(report: Report): void {
     // display modal comp using MatDialog service
-    this.info.open(MoreInfoComponent, {
+    this.dialogRef.open(MoreInfoComponent, {
       data: report,
     });
   }
