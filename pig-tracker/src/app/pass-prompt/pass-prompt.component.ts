@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
+  FormBuilder,
   FormControl,
   FormGroup,
   ValidationErrors,
@@ -16,38 +17,46 @@ import { PasswordService } from '../services/password.service';
   styleUrls: ['./pass-prompt.component.css'],
 })
 export class PassPromptComponent {
-  passwd_form: FormGroup;
-  passwd_key: string = '';
+  form: FormGroup;
   matching: boolean = false;
+  passwd_key: string = 'Liam';
 
   constructor(
     private prompt: MatDialogRef<PassPromptComponent>,
+    private fb: FormBuilder,
     private ps: PasswordService
   ) {
-    // let formControls = {
-    //   name: new FormControl('', [Validators.required, this.validate_passwd]),
-    // };
-
-    this.passwd_form = new FormGroup(this.validate_passwd);
+    this.form = this.fb.group({
+      password: ['', [Validators.required, this.validate_passwd]],
+    });
   }
 
-  ngOnInit(): void {
-    this.passwd_key = this.ps.get_pass();
+  ngOnInit(): void {}
+
+  get password() {
+    return this.form.get('password');
   }
 
   // return null if passwd is valid
-  validate_passwd(control: AbstractControl): ValidationErrors | null {
-    const password = control.get('passwd');
+  validate_passwd(control: FormControl): ValidationErrors | null {
+    const password = control.value;
+    console.log(password);
     // Hash password
-    if (password!.value === this.passwd_key) return null;
+    if (password === 'Liam') return null;
     return { form_error: true };
   }
 
-  submit(passwd_form: FormGroup) {
-    this.prompt.close();
+  submit() {
+    if (this.form.valid) {
+      console.log('Form Subbed', this.form.value);
+      this.matching = true;
+      this.prompt.close({ delete: true });
+      return;
+    }
+    console.log('Failed to submit');
   }
 
   cancel() {
-    this.prompt.close();
+    this.prompt.close({ delete: false });
   }
 }

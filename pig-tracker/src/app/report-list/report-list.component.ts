@@ -23,12 +23,18 @@ export class ReportListComponent implements OnInit {
 
   delete(report: Report): void {
     // get passwd and check
-    this.dialogRef.open(PassPromptComponent);
-    const error = this.rs.delete(report);
-    if (!error) {
-      // Do something with the error
-    }
-    this.refresh_reports();
+    let password_dialog = this.dialogRef.open(PassPromptComponent);
+    password_dialog.afterClosed().subscribe((obj) => {
+      if (!obj) {
+        return;
+      } else if (obj.delete) {
+        const error = this.rs.delete(report);
+        if (!error) {
+          // Do something with the error
+        }
+        this.refresh_reports();
+      }
+    });
   }
 
   get_info(report: Report): void {

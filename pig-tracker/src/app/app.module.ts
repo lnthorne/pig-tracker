@@ -8,6 +8,7 @@ import { MoreInfoComponent } from './more-info/more-info.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PassPromptComponent } from './pass-prompt/pass-prompt.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
