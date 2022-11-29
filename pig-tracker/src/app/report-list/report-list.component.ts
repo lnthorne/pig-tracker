@@ -21,15 +21,17 @@ export class ReportListComponent implements OnInit {
   }
 
   delete(report: Report): void {
-    // valid = true if passwd matches in the dialog
-    const valid = this.open_Dialog();
-    if (valid) {
-      const error = this.rs.delete(report);
-      if (!error) {
-        // Do something with the error
+    // get passwd and check
+    let password_dialog = this.dialogRef.open(PassPromptComponent);
+    password_dialog.afterClosed().subscribe((obj) => {
+      if (obj && obj.valid) {
+        const error = this.rs.delete(report);
+        if (!error) {
+          // Do something with the error
+        }
+        this.refresh_reports();
       }
-      this.refresh_reports();
-    }
+    });
   }
 
   get_info(report: Report): void {
@@ -40,26 +42,19 @@ export class ReportListComponent implements OnInit {
   }
 
   change_status(report: Report): void {
-    const valid = this.open_Dialog();
-    if (valid) {
-      const error = this.rs.change_status(report);
-      if (!error) {
-        // Do something with error
+    let password_dialog = this.dialogRef.open(PassPromptComponent);
+    password_dialog.afterClosed().subscribe((obj) => {
+      if (obj && obj.valid) {
+        const error = this.rs.change_status(report);
+        if (!error) {
+          // Do something with error
+        }
+        this.refresh_reports();
       }
-    }
+    });
   }
 
   private refresh_reports(): void {
     this.reports = this.rs.get_all_reports();
-  }
-
-  private open_Dialog(): boolean {
-    let is_valid = false;
-    const password_dialog = this.dialogRef.open(PassPromptComponent);
-    password_dialog.afterClosed().subscribe((obj) => {
-      if (obj && obj.valid) is_valid = true;
-    });
-
-    return is_valid;
   }
 }

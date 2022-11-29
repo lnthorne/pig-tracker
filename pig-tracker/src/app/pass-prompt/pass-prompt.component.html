@@ -1,7 +1,15 @@
 <h1>Testing password</h1>
 <form [formGroup]="form" (ngSubmit)="submit()">
-  <input formControlName="password" required />
-  <span *ngIf="password!.invalid && password!.touched"> Not the password </span>
-  <!-- <button [disabled]="form.invalid">Test</button> -->
-  <button>Placeholder</button>
+  <!-- <input formControlName="password" required /> -->
+  <mat-form-field>
+    <input matInput placeholder="password" formControlName="password" />
+  </mat-form-field>
+  <mat-error
+    *ngIf="password!.invalid && password!.touched"
+    class="has-text-danger"
+  >
+    Wrong password
+  </mat-error>
+  <button type="submit">Placeholder</button>
+  <button (click)="cancel()">CANCEL</button>
 </form>
