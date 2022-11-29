@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
   ValidationErrors,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -16,7 +14,7 @@ import { PasswordService } from '../services/password.service';
   templateUrl: './pass-prompt.component.html',
   styleUrls: ['./pass-prompt.component.css'],
 })
-export class PassPromptComponent {
+export class PassPromptComponent implements OnInit {
   form: FormGroup;
   matching: boolean = false;
   passwd_key: string = 'Liam';
@@ -50,13 +48,13 @@ export class PassPromptComponent {
     if (this.form.valid) {
       console.log('Form Subbed', this.form.value);
       this.matching = true;
-      this.prompt.close({ delete: true });
+      this.prompt.close({ valid: true });
       return;
     }
     console.log('Failed to submit');
   }
 
   cancel() {
-    this.prompt.close({ delete: false });
+    this.prompt.close({ valid: false });
   }
 }
