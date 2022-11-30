@@ -1,5 +1,3 @@
-import { Breed_enum } from './breed.enum';
-
 export interface Pig {
   pid: string;
   breed: string;
