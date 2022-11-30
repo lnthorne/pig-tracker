@@ -10,11 +10,17 @@ export class ReportService {
 
   constructor() {
     // temp data
-    let pig = { pig_name: 'Liam', pig_breed: Breed_enum.FuzzyPig };
-    let person = { person_name: 'John', phone_number: '123' };
-    let location = { longitude: 0, latitude: 0, location_name: 'Thorne' };
+    let pig = { pid: '123', breed: 'Burnt' };
+    let person = { name: 'John', phone: '123' };
+    let location = { longitude: 0, latitude: 0, location: '1' };
     let test = new Report(pig, person, location);
+    let pig2 = { pid: '333', breed: 'Burnt' };
+    let person2 = { name: 'Liam', phone: '123' };
+    let location2 = { longitude: 0, latitude: 0, location: '2' };
+    let test2 = new Report(pig2, person2, location2);
+    test2.status = true;
     this.reports.set(test.report_id, test);
+    this.reports.set(test2.report_id, test2);
   }
 
   get_all_reports(): Map<string, Report> {
@@ -28,6 +34,7 @@ export class ReportService {
   // returns one report if successfully added
   // return Null if report already exists
   add(report: Report): Report | null {
+    this.reports.set(report.report_id, report);
     return null;
   }
 
@@ -45,6 +52,11 @@ export class ReportService {
   // return report if successfully changed status
   // return null if report is not found
   change_status(report: Report): Report | null {
+    if (this.find_report(report)) {
+      report.status = !report.status;
+      // add will update the current report with the new status
+      this.add(report);
+    }
     return null;
   }
 

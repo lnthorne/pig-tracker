@@ -3,13 +3,14 @@
   <!-- <input formControlName="password" required /> -->
   <mat-form-field>
     <input matInput placeholder="password" formControlName="password" />
+    <mat-error
+      *ngIf="password!.invalid && password!.touched"
+      class="has-text-danger"
+    >
+      Wrong password
+    </mat-error>
   </mat-form-field>
-  <mat-error
-    *ngIf="password!.invalid && password!.touched"
-    class="has-text-danger"
-  >
-    Wrong password
-  </mat-error>
-  <button type="submit">Placeholder</button>
-  <button (click)="cancel()">CANCEL</button>
+  <hr />
+  <button mat-raised-button color="primary" type="submit">VALIDATE</button>
+  <button mat-raised-button color="secondary" (click)="cancel()">CANCEL</button>
 </form>

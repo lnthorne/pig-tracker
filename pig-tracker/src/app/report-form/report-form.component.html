@@ -1,1 +1,81 @@
-<p>report-form works!</p>
+<form [formGroup]="form" [hidden]="success" (ngSubmit)="submit()">
+  <h1>Pig Report</h1>
+  <h4>Personal Information</h4>
+  <div formGroupName="person">
+    <mat-form-field class="xs">
+      <input matInput placeholder="name" formControlName="name" />
+
+      <mat-error
+        *ngIf="person!.invalid && person!.touched"
+        class="has-text-danger"
+      >
+        Missing your name
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="xs">
+      <input matInput placeholder="phone" formControlName="phone" />
+
+      <mat-error
+        *ngIf="person!.invalid && person!.touched"
+        class="has-text-danger"
+      >
+        Please enter 10 digit phone number
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <h4>Pig Information</h4>
+  <div formGroupName="pig">
+    <mat-form-field class="xs">
+      <input matInput placeholder="breed" formControlName="breed" />
+
+      <mat-error *ngIf="pig!.invalid && pig!.touched" class="has-text-danger">
+        Missing pig breed
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="xs">
+      <input matInput placeholder="PID" formControlName="pid" />
+
+      <mat-error *ngIf="pig!.invalid && pig!.touched" class="has-text-danger">
+        Please enter 3 digit PID number
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="xs">
+      <input matInput placeholder="name" formControlName="name" />
+
+      <mat-error *ngIf="pig!.invalid && pig!.touched" class="has-text-danger">
+        Missing pig name
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <h4>Location and Date</h4>
+  <mat-form-field class="xs">
+    <input matInput placeholder="location" formControlName="location" />
+    <mat-error
+      *ngIf="location!.invalid && location!.touched"
+      class="has-text-danger"
+    >
+      Missing location
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="xs">
+    <input matInput placeholder="date" formControlName="date" />
+    <mat-error *ngIf="date!.invalid && date!.touched" class="has-text-danger">
+      Missing date
+    </mat-error>
+  </mat-form-field>
+  <hr />
+  <button
+    mat-raised-button
+    type="submit"
+    [disabled]="form.invalid"
+    color="primary"
+  >
+    ADD
+  </button>
+</form>
+
+<div *ngIf="success" class="notification is-success">
+  Yay! We received your submission
+</div>

@@ -1,13 +1,79 @@
 <p>Welcome!</p>
-<ul>
+<!-- <ul>
   <li *ngFor="let report of reports | keyvalue">
-    <p>{{ report.value.person.person_name }}</p>
-    <p>{{ report.value.person.phone_number }}</p>
-    <p>{{ report.value.pig.pig_name }}</p>
-    <p>{{ report.value.pig.pig_breed }}</p>
+    <p>{{ report.value.person.name }}</p>
+    <p>{{ report.value.person.phone }}</p>
+    <p>{{ report.value.pig.pid }}</p>
+    <p>{{ report.value.pig.breed }}</p>
     <p>{{ report.value.report_id }}</p>
     <p>{{ report.value.status }}</p>
-    <button (click)="get_info(report.value)">MORE INFO</button>
-    <button (click)="delete(report.value)">DELETE</button>
+    <button mat-flat-button color="primary" (click)="get_info(report.value)">
+      MORE INFO
+    </button>
+    <button mat-flat-button color="warn" (click)="delete(report.value)">
+      DELETE
+    </button>
   </li>
-</ul>
+</ul> -->
+<button mat-raised-button color="primary" (click)="add_dialog()">
+  ADD PIG
+</button>
+<table
+  mat-table
+  [dataSource]="dataSource"
+  matSort
+  class="mat-elevation-z8"
+  matSort
+>
+  <!-- Location Column -->
+  <ng-container matColumnDef="location">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
+    <td mat-cell *matCellDef="let report">{{ report.pig.pid }}</td>
+  </ng-container>
+  <!-- Reported by column  -->
+  <ng-container matColumnDef="reported-by">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Reported By</th>
+    <td mat-cell *matCellDef="let report">{{ report.person.name }}</td>
+  </ng-container>
+  <!-- Date -->
+  <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+    <td mat-cell *matCellDef="let report">{{ report.person.name }}</td>
+  </ng-container>
+  <!-- status -->
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+    <td mat-cell *matCellDef="let report">
+      <span *ngIf="report.status; else not_retrieved"
+        ><a class="link-primary" (click)="change_status(report)"
+          >RETRIEVED</a
+        ></span
+      >
+      <ng-template #not_retrieved>
+        <a class="link-primary" (click)="change_status(report)"
+          >READY FOR PICKUP</a
+        >
+      </ng-template>
+    </td>
+  </ng-container>
+  <!-- more info -->
+  <ng-container matColumnDef="info">
+    <th mat-header-cell *matHeaderCellDef>More Info</th>
+    <td mat-cell *matCellDef="let report">
+      <button mat-flat-button color="primary" (click)="info_dialog(report)">
+        MORE INFO
+      </button>
+    </td>
+  </ng-container>
+  <!-- delete -->
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef>Delete</th>
+    <td mat-cell *matCellDef="let report">
+      <button mat-flat-button color="warn" (click)="delete(report)">
+        DELETE
+      </button>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let report; columns: displayedColumns"></tr>
+</table>

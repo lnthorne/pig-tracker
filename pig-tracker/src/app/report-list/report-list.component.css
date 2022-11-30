@@ -1,0 +1,15 @@
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: dodgerblue;
+  cursor: pointer;
+}

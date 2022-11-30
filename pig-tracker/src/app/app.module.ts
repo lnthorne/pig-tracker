@@ -8,6 +8,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -18,7 +20,6 @@ import { AppComponent } from './app.component';
 import { ReportListComponent } from './report-list/report-list.component';
 import { MoreInfoComponent } from './more-info/more-info.component';
 import { PassPromptComponent } from './pass-prompt/pass-prompt.component';
-import { ReportCreateComponent } from './report-create/report-create.component';
 import { ReportFormComponent } from './report-form/report-form.component';
 
 @NgModule({
@@ -27,7 +28,6 @@ import { ReportFormComponent } from './report-form/report-form.component';
     ReportListComponent,
     MoreInfoComponent,
     PassPromptComponent,
-    ReportCreateComponent,
     ReportFormComponent,
   ],
   imports: [
@@ -40,6 +40,8 @@ import { ReportFormComponent } from './report-form/report-form.component';
     MatCheckboxModule,
     MatChipsModule,
     MatDialogModule,
+    MatTableModule,
+    MatSortModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
