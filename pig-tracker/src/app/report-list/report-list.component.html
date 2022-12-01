@@ -20,7 +20,7 @@
 </button>
 <table
   mat-table
-  [dataSource]="dataSource"
+  [dataSource]="reports_arr$"
   matSort
   class="mat-elevation-z8"
   matSort
@@ -28,29 +28,29 @@
   <!-- Location Column -->
   <ng-container matColumnDef="location">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
-    <td mat-cell *matCellDef="let report">{{ report.pig.pid }}</td>
+    <td mat-cell *matCellDef="let report">{{ report.data.person.name }}</td>
   </ng-container>
   <!-- Reported by column  -->
   <ng-container matColumnDef="reported-by">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Reported By</th>
-    <td mat-cell *matCellDef="let report">{{ report.person.name }}</td>
+    <td mat-cell *matCellDef="let report">{{ report.data.person.name }}</td>
   </ng-container>
   <!-- Date -->
   <ng-container matColumnDef="date">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-    <td mat-cell *matCellDef="let report">{{ report.person.name }}</td>
+    <td mat-cell *matCellDef="let report">{{ report.data.person.name }}</td>
   </ng-container>
   <!-- status -->
   <ng-container matColumnDef="status">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
     <td mat-cell *matCellDef="let report">
-      <span *ngIf="report.status; else not_retrieved"
-        ><a class="link-primary" (click)="change_status(report)"
+      <span *ngIf="report.data.status; else not_retrieved"
+        ><a class="link-primary" (click)="change_status(report.data)"
           >RETRIEVED</a
         ></span
       >
       <ng-template #not_retrieved>
-        <a class="link-primary" (click)="change_status(report)"
+        <a class="link-primary" (click)="change_status(report.data)"
           >READY FOR PICKUP</a
         >
       </ng-template>
@@ -60,7 +60,11 @@
   <ng-container matColumnDef="info">
     <th mat-header-cell *matHeaderCellDef>More Info</th>
     <td mat-cell *matCellDef="let report">
-      <button mat-flat-button color="primary" (click)="info_dialog(report)">
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="info_dialog(report.data)"
+      >
         MORE INFO
       </button>
     </td>
@@ -69,7 +73,7 @@
   <ng-container matColumnDef="delete">
     <th mat-header-cell *matHeaderCellDef>Delete</th>
     <td mat-cell *matCellDef="let report">
-      <button mat-flat-button color="warn" (click)="delete(report)">
+      <button mat-flat-button color="warn" (click)="delete(report.data)">
         DELETE
       </button>
     </td>

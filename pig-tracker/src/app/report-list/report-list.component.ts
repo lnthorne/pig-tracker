@@ -14,8 +14,7 @@ import { MatSort, Sort } from '@angular/material/sort';
   styleUrls: ['./report-list.component.css'],
 })
 export class ReportListComponent implements OnInit, AfterViewInit {
-  reports = new Map<string, Report>();
-  dataSource: any;
+  reports_arr$: any;
   displayedColumns: string[] = [
     'location',
     'reported-by',
@@ -29,7 +28,10 @@ export class ReportListComponent implements OnInit, AfterViewInit {
   constructor(private rs: ReportService, private dialogRef: MatDialog) {}
 
   ngOnInit(): void {
-    this.refresh_reports();
+    this.load_reports();
+    this.rs.refresh.subscribe((response) => {
+      this.load_reports();
+    });
   }
 
   ngAfterViewInit(): void {}
@@ -42,26 +44,19 @@ export class ReportListComponent implements OnInit, AfterViewInit {
         if (!error) {
           // Do something with the error
         }
-        this.refresh_reports();
       }
     });
   }
 
   info_dialog(report: Report): void {
     // display modal comp using MatDialog service
-    console.log(report);
     this.dialogRef.open(MoreInfoComponent, {
       data: report,
     });
   }
 
   add_dialog(): void {
-    const form_dialog = this.dialogRef.open(ReportFormComponent);
-    form_dialog.afterClosed().subscribe((obj) => {
-      if (obj && obj.valid) {
-        this.refresh_reports();
-      }
-    });
+    this.dialogRef.open(ReportFormComponent);
   }
 
   change_status(report: Report): void {
@@ -72,13 +67,13 @@ export class ReportListComponent implements OnInit, AfterViewInit {
         if (!error) {
           // Do something with error
         }
-        this.refresh_reports();
       }
     });
   }
 
-  private refresh_reports(): void {
-    this.reports = this.rs.get_all_reports();
-    this.dataSource = new MatTableDataSource(Array.from(this.reports.values()));
+  private load_reports(): void {
+    this.rs.get_all_reports().subscribe((reports) => {
+      this.reports_arr$ = reports;
+    });
   }
 }
