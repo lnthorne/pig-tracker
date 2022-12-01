@@ -1,14 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Report } from '../models/report.model';
-import { Breed_enum } from '../models/breed.enum';
+import { HttpClient } from '@angular/common/http';
+
+import axios from 'axios';
+const client = axios.create();
+
+const DB_URL =
+  'https://272.selfip.net/apps/Xn9x9CAcNo/collections/reports/documents/';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ReportService {
+export class ReportService implements OnInit {
   reports = new Map<string, Report>();
 
-  constructor() {
+  constructor(private http: HttpClient) {
     // temp data
     let pig = { pid: '123', breed: 'Burnt' };
     let person = { name: 'John', phone: '123' };
@@ -23,6 +29,8 @@ export class ReportService {
     this.reports.set(test2.report_id, test2);
   }
 
+  async ngOnInit(): Promise<void> {}
+
   get_all_reports(): Map<string, Report> {
     return this.reports;
   }
@@ -35,6 +43,14 @@ export class ReportService {
   // return Null if report already exists
   add(report: Report): Report | null {
     this.reports.set(report.report_id, report);
+
+    this.http
+      .post(DB_URL, { key: report.report_id, data: report })
+      .subscribe((data: any) => {
+        console.log(data);
+        this.get_all_reports;
+      });
+    // console.log(JSON.stringify(formatData));
     return null;
   }
 
@@ -58,6 +74,11 @@ export class ReportService {
       this.add(report);
     }
     return null;
+    // get all values from map
+    // iterate over all PIDs
+    // if pid matches then update the status
+    // update databse
+    // refresh local mapping
   }
 
   // return true if found
@@ -65,5 +86,18 @@ export class ReportService {
   private find_report(report: Report): boolean {
     if (this.reports.has(report.report_id)) return true;
     return false;
+  }
+
+  async load_data() {
+    const res = await client.get(DB_URL);
+    res.data.forEach((item: any) => {
+      const report_t = new Report(
+        item.data.pig,
+        item.data.person,
+        item.data.location
+      );
+      this.reports.set(item.key, report_t);
+    });
+    console.log(this.reports);
   }
 }

@@ -15,12 +15,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReportListComponent } from './report-list/report-list.component';
 import { MoreInfoComponent } from './more-info/more-info.component';
 import { PassPromptComponent } from './pass-prompt/pass-prompt.component';
 import { ReportFormComponent } from './report-form/report-form.component';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,7 @@ import { ReportFormComponent } from './report-form/report-form.component';
     MoreInfoComponent,
     PassPromptComponent,
     ReportFormComponent,
+    MapComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +49,7 @@ import { ReportFormComponent } from './report-form/report-form.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

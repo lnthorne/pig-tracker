@@ -30,7 +30,6 @@ export class ReportListComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.refresh_reports();
-    console.log(Array.from(this.reports.values()));
   }
 
   ngAfterViewInit(): void {}
