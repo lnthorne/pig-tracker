@@ -29,11 +29,15 @@ export class ReportFormComponent {
       pid: ['', [Validators.required, Validators.pattern('^[0-9]{3}$')]],
       name: ['', [Validators.required]],
     });
+    const location = this.fb.group({
+      name: ['', [Validators.required]],
+      longitude: ['', [Validators.required]],
+      latitude: ['', [Validators.required]],
+    });
     this.form = this.fb.group({
       person: person,
       pig: pig,
-      location: ['', [Validators.required]],
-      date: ['', [Validators.required]],
+      location: location,
     });
   }
 
@@ -45,9 +49,6 @@ export class ReportFormComponent {
   }
   get location() {
     return this.form.get('location');
-  }
-  get date() {
-    return this.form.get('date');
   }
 
   submit() {

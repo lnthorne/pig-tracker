@@ -50,21 +50,40 @@
   </div>
 
   <h4>Location and Date</h4>
-  <mat-form-field class="xs">
-    <input matInput placeholder="location" formControlName="location" />
-    <mat-error
-      *ngIf="location!.invalid && location!.touched"
-      class="has-text-danger"
-    >
-      Missing location
-    </mat-error>
-  </mat-form-field>
-  <mat-form-field class="xs">
-    <input matInput placeholder="date" formControlName="date" />
-    <mat-error *ngIf="date!.invalid && date!.touched" class="has-text-danger">
-      Missing date
-    </mat-error>
-  </mat-form-field>
+  <div formGroupName="location">
+    <mat-form-field class="xs">
+      <input matInput placeholder="name" formControlName="name" />
+
+      <mat-error
+        *ngIf="location!.invalid && location!.touched"
+        class="has-text-danger"
+      >
+        Missing location name
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="xs">
+      <input matInput placeholder="longitude" formControlName="longitude" />
+
+      <mat-error
+        *ngIf="location!.invalid && location!.touched"
+        class="has-text-danger"
+      >
+        Missing longitude
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="xs">
+      <input matInput placeholder="latitude" formControlName="latitude" />
+
+      <mat-error
+        *ngIf="location!.invalid && location!.touched"
+        class="has-text-danger"
+      >
+        Missing latitude
+      </mat-error>
+    </mat-form-field>
+  </div>
   <hr />
   <button
     mat-raised-button

@@ -48,9 +48,9 @@ export class ReportService {
    * Then refresh the data
    */
   delete(report: Report) {
-    const update_key = DB_URL + `${report.report_id}/`;
+    const delete_key = DB_URL + `${report.report_id}/`;
     return this.http
-      .delete(update_key)
+      .delete(delete_key)
       .pipe(
         tap(() => {
           this.refresh_required.next();
