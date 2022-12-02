@@ -19,7 +19,7 @@ const iconDeafult = icon({
 Marker.prototype.options.icon = iconDeafult;
 
 const DEFAULT = [49.1867, -122.849];
-const tester = new Map();
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -28,7 +28,6 @@ const tester = new Map();
 export class MapComponent implements OnInit, AfterViewInit {
   private map: any;
   private layerGroup: any;
-  locations: any = [];
   locs: any = new Map<string, Object>();
 
   constructor(private rs: ReportService) {}
@@ -39,7 +38,6 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.rs.refresh.subscribe((res) => {
       console.log('refresh in initialization');
       this.layerGroup.clearLayers();
-      this.locations = [];
       this.locs = new Map<string, Object>();
       this.load_reports();
     });
@@ -98,14 +96,15 @@ export class MapComponent implements OnInit, AfterViewInit {
    * create new marker and add to layerGroup
    */
   private place_marker() {
-    this.locations.forEach((loocation: any) => {
+    this.locs.forEach((loocation: any) => {
       const long = Number(loocation.longitude);
       const lat = Number(loocation.latitude);
       const name = loocation.name;
+      const number = loocation.number;
 
       L.marker([lat, long])
         .addTo(this.layerGroup)
-        .bindPopup(`<b>${name}</b><br/> Cases Reported`).openPopup;
+        .bindPopup(`<b>${name}</b><br/> Cases Reported: ${number}`).openPopup;
     });
   }
 }
