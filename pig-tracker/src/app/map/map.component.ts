@@ -19,7 +19,7 @@ const iconDeafult = icon({
 Marker.prototype.options.icon = iconDeafult;
 
 const DEFAULT = [49.1867, -122.849];
-
+const tester = new Map();
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -29,7 +29,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   private map: any;
   private layerGroup: any;
   locations: any = [];
-  test: any[] = [];
+  locs: any = new Map<string, Object>();
 
   constructor(private rs: ReportService) {}
 
@@ -40,6 +40,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       console.log('refresh in initialization');
       this.layerGroup.clearLayers();
       this.locations = [];
+      this.locs = new Map<string, Object>();
       this.load_reports();
     });
   }
@@ -64,15 +65,29 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
   /*
    * Call report service to get reports observable
-   * extract location information from reports
+   * format location information from reports
+   * set to locations
    * Call place_marker
    */
   private load_reports(): void {
     this.rs.get_all_reports().subscribe((reports) => {
-      this.test = reports;
-      this.test.forEach((report) => {
-        this.locations.push(report.data.location);
+      reports.forEach((report) => {
+        const formatted_data = {
+          name: report.data.location.name,
+          latitude: report.data.location.latitude,
+          longitude: report.data.location.longitude,
+          number: 1,
+        };
+
+        if (this.locs.has(formatted_data.name)) {
+          let number = this.locs.get(formatted_data.name).number;
+          formatted_data.number = ++number;
+          this.locs.set(formatted_data.name, formatted_data);
+        } else {
+          this.locs.set(formatted_data.name, formatted_data);
+        }
       });
+
       this.place_marker();
     });
   }
