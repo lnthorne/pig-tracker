@@ -9,7 +9,15 @@ a {
   text-decoration: none;
 }
 
+table {
+  margin: 10px;
+}
+
 a:hover {
   color: dodgerblue;
   cursor: pointer;
+}
+
+#add-pig {
+  margin: 10px;
 }

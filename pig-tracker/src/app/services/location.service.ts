@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
+import { ReportService } from './report.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class LocationService {
+export class LocationService implements OnInit {
+  constructor(private rs: ReportService) {}
 
-  constructor() { }
+  ngOnInit(): void {}
 }
