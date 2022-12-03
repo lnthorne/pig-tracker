@@ -17,6 +17,7 @@ export class MoreInfoComponent {
     'phone',
     'status',
     'location',
+    'notes',
   ];
   constructor(@Inject(MAT_DIALOG_DATA) public data: Report) {
     this.report.push(data);

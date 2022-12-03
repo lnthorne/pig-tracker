@@ -38,6 +38,7 @@ export class ReportFormComponent {
       person: person,
       pig: pig,
       location: location,
+      notes: [''],
     });
   }
 
@@ -50,13 +51,17 @@ export class ReportFormComponent {
   get location() {
     return this.form.get('location');
   }
+  get notes() {
+    return this.form.get('notes');
+  }
 
   submit() {
     const formValue = this.form.value;
     const report = new Report(
       formValue.pig,
       formValue.person,
-      formValue.location
+      formValue.location,
+      formValue.notes
     );
     const error = this.rs.add(report);
     if (!error) {

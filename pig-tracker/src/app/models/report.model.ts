@@ -5,13 +5,17 @@ export class Report {
   pig: Pig;
   person: Person;
   location: Location;
+  notes: string | undefined;
+  date: any;
   report_id: string;
   status: boolean = false;
 
-  constructor(pig: Pig, person: Person, location: Location) {
+  constructor(pig: Pig, person: Person, location: Location, notes?: string) {
     this.pig = pig;
     this.person = person;
     this.location = location;
+    this.notes = notes;
+    this.date = new Date();
     this.report_id = uuid.v4();
   }
 }
