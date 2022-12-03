@@ -51,38 +51,47 @@
 
   <h4>Location and Date</h4>
   <div formGroupName="location">
-    <mat-form-field class="xs">
-      <input matInput placeholder="name" formControlName="name" />
+    <mat-label>Select an option</mat-label>
+    <mat-select [(value)]="location">
+      <mat-option *ngFor="let loc of locs | keyvalue" [value]="loc.value">{{
+        loc.key
+      }}</mat-option>
+      <mat-option value="other">other</mat-option>
+    </mat-select>
+    <div *ngIf="new_location">
+      <mat-form-field class="xs">
+        <input matInput placeholder="name" formControlName="name" />
 
-      <mat-error
-        *ngIf="location!.invalid && location!.touched"
-        class="has-text-danger"
-      >
-        Missing location name
-      </mat-error>
-    </mat-form-field>
+        <mat-error
+          *ngIf="location!.invalid && location!.touched"
+          class="has-text-danger"
+        >
+          Missing location name
+        </mat-error>
+      </mat-form-field>
 
-    <mat-form-field class="xs">
-      <input matInput placeholder="longitude" formControlName="longitude" />
+      <mat-form-field class="xs">
+        <input matInput placeholder="longitude" formControlName="longitude" />
 
-      <mat-error
-        *ngIf="location!.invalid && location!.touched"
-        class="has-text-danger"
-      >
-        Missing longitude
-      </mat-error>
-    </mat-form-field>
+        <mat-error
+          *ngIf="location!.invalid && location!.touched"
+          class="has-text-danger"
+        >
+          Missing longitude
+        </mat-error>
+      </mat-form-field>
 
-    <mat-form-field class="xs">
-      <input matInput placeholder="latitude" formControlName="latitude" />
+      <mat-form-field class="xs">
+        <input matInput placeholder="latitude" formControlName="latitude" />
 
-      <mat-error
-        *ngIf="location!.invalid && location!.touched"
-        class="has-text-danger"
-      >
-        Missing latitude
-      </mat-error>
-    </mat-form-field>
+        <mat-error
+          *ngIf="location!.invalid && location!.touched"
+          class="has-text-danger"
+        >
+          Missing latitude
+        </mat-error>
+      </mat-form-field>
+    </div>
   </div>
   <h4>Extra Notes</h4>
   <mat-form-field class="xs">

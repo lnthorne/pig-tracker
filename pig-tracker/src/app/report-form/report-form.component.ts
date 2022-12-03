@@ -13,6 +13,7 @@ export class ReportFormComponent implements OnInit {
   form: FormGroup;
   locs: any = new Map<string, Object>();
   success: boolean = false;
+  new_location: boolean = false;
   constructor(
     private rs: ReportService,
     private fb: FormBuilder,
@@ -44,9 +45,9 @@ export class ReportFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.load_reports();
+    this.load_location();
     this.rs.refresh.subscribe((res) => {
-      this.load_reports();
+      this.load_location();
     });
   }
 
@@ -62,9 +63,18 @@ export class ReportFormComponent implements OnInit {
   get notes() {
     return this.form.get('notes');
   }
+  set location(value: any) {
+    if (value === 'other') {
+      this.new_location = true;
+      return;
+    }
+    this.new_location = false;
+    this.form.get('location')!.setValue(value);
+  }
 
   submit() {
     const formValue = this.form.value;
+    console.log(formValue.location);
     const report = new Report(
       formValue.pig,
       formValue.person,
@@ -82,28 +92,13 @@ export class ReportFormComponent implements OnInit {
   /*
    * Call report service to get reports observable
    * format location information from reports
-   * set to locations
-   * Call place_marker
+   * set to locations map
    */
-  private load_reports(): void {
+  private load_location(): void {
     this.rs.get_all_reports().subscribe((reports) => {
       reports.forEach((report) => {
-        const formatted_data = {
-          name: report.data.location.name,
-          latitude: report.data.location.latitude,
-          longitude: report.data.location.longitude,
-          number: 1,
-        };
-
-        if (this.locs.has(formatted_data.name)) {
-          let number = this.locs.get(formatted_data.name).number;
-          formatted_data.number = ++number;
-          this.locs.set(formatted_data.name, formatted_data);
-        } else {
-          this.locs.set(formatted_data.name, formatted_data);
-        }
+        this.locs.set(report.data.location.name, report.data.location);
       });
-      console.log(this.locs);
     });
   }
 }

@@ -33,10 +33,8 @@ export class MapComponent implements OnInit, AfterViewInit {
   constructor(private rs: ReportService) {}
 
   ngOnInit(): void {
-    console.log('Init');
     this.load_reports();
     this.rs.refresh.subscribe((res) => {
-      console.log('refresh in initialization');
       this.layerGroup.clearLayers();
       this.locs = new Map<string, Object>();
       this.load_reports();
@@ -44,7 +42,6 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log('View');
     this.map = L.map('mapid').setView([49.2, -123], 11);
     L.tileLayer(
       'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibG50NiIsImEiOiJjbGI0Y3EwOHUwNXJmM3VudGcyZG8yYW01In0.utYeVSqeMTwlxd2dogqqXw',
