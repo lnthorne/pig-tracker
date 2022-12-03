@@ -13,8 +13,8 @@ import { MatSort, Sort } from '@angular/material/sort';
   templateUrl: './report-list.component.html',
   styleUrls: ['./report-list.component.css'],
 })
-export class ReportListComponent implements OnInit, AfterViewInit {
-  reports_arr$: any;
+export class ReportListComponent implements OnInit {
+  reports_arr$: any = new MatTableDataSource();
   displayedColumns: string[] = [
     'location',
     'reported-by',
@@ -34,7 +34,6 @@ export class ReportListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit(): void {}
   delete(report: Report): void {
     // get passwd and check
     let password_dialog = this.dialogRef.open(PassPromptComponent);
@@ -71,9 +70,29 @@ export class ReportListComponent implements OnInit, AfterViewInit {
     });
   }
 
+  // Allow sorting of the nested attributes in replorts
+  nested_attributes(report: any, sortHeaderId: string) {
+    switch (sortHeaderId) {
+      case 'location': {
+        return report.data.location.name;
+      }
+      case 'reported-by': {
+        return report.data.person.name;
+      }
+      case 'date': {
+        return report.data.date;
+      }
+      case 'status': {
+        return report.data.status;
+      }
+    }
+  }
+
   private load_reports(): void {
     this.rs.get_all_reports().subscribe((reports) => {
-      this.reports_arr$ = reports;
+      this.reports_arr$.data = reports;
+      this.reports_arr$.sortingDataAccessor = this.nested_attributes;
+      this.reports_arr$.sort = this.sort;
     });
   }
 }

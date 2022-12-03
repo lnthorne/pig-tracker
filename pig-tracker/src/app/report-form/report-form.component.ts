@@ -91,7 +91,6 @@ export class ReportFormComponent implements OnInit {
 
   /*
    * Call report service to get reports observable
-   * format location information from reports
    * set to locations map
    */
   private load_location(): void {

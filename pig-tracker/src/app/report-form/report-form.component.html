@@ -51,13 +51,16 @@
 
   <h4>Location and Date</h4>
   <div formGroupName="location">
-    <mat-label>Select an option</mat-label>
-    <mat-select [(value)]="location">
-      <mat-option *ngFor="let loc of locs | keyvalue" [value]="loc.value">{{
-        loc.key
-      }}</mat-option>
-      <mat-option value="other">other</mat-option>
-    </mat-select>
+    <mat-form-field class="xs">
+      <mat-label>Select an option</mat-label>
+      <mat-select [(value)]="location">
+        <mat-option *ngFor="let loc of locs | keyvalue" [value]="loc.value">{{
+          loc.key
+        }}</mat-option>
+        <mat-option value="other">other</mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <div *ngIf="new_location">
       <mat-form-field class="xs">
         <input matInput placeholder="name" formControlName="name" />
