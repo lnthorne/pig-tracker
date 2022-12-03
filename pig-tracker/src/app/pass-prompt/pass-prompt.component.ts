@@ -35,7 +35,9 @@ export class PassPromptComponent implements OnInit {
     return this.form.get('password');
   }
 
-  // return null if passwd is valid
+  /*
+   * Return null if the password is valid
+   */
   validate_passwd(control: FormControl): ValidationErrors | null {
     const password = control.value;
     console.log(password);
@@ -44,6 +46,10 @@ export class PassPromptComponent implements OnInit {
     return { form_error: true };
   }
 
+  /*
+   * Check id form is valid
+   * If valid, pass an observable object
+   */
   submit() {
     if (this.form.valid) {
       console.log('Form Subbed', this.form.value);
@@ -54,6 +60,9 @@ export class PassPromptComponent implements OnInit {
     console.log('Failed to submit');
   }
 
+  /*
+   * pass an observable object
+   */
   cancel() {
     this.prompt.close({ valid: false });
   }

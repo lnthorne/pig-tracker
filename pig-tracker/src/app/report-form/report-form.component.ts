@@ -72,9 +72,13 @@ export class ReportFormComponent implements OnInit {
     this.form.get('location')!.setValue(value);
   }
 
+  /*
+   * format values inputed from user
+   * add report to the DB
+   * Close dialog box
+   */
   submit() {
     const formValue = this.form.value;
-    console.log(formValue.location);
     const report = new Report(
       formValue.pig,
       formValue.person,
@@ -85,8 +89,7 @@ export class ReportFormComponent implements OnInit {
     if (!error) {
       // Do some error
     }
-    this.prompt.close({ valid: true });
-    console.log(formValue);
+    this.prompt.close();
   }
 
   /*

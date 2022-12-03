@@ -34,6 +34,10 @@ export class ReportListComponent implements OnInit {
     });
   }
 
+  /*
+   * Open password dialog
+   * Check if diolog returns valid
+   */
   delete(report: Report): void {
     // get passwd and check
     let password_dialog = this.dialogRef.open(PassPromptComponent);
@@ -47,6 +51,9 @@ export class ReportListComponent implements OnInit {
     });
   }
 
+  /*
+   * Open more information diolag
+   */
   info_dialog(report: Report): void {
     // display modal comp using MatDialog service
     this.dialogRef.open(MoreInfoComponent, {
@@ -54,10 +61,17 @@ export class ReportListComponent implements OnInit {
     });
   }
 
+  /*
+   * Create a new pig report
+   */
   add_dialog(): void {
     this.dialogRef.open(ReportFormComponent);
   }
 
+  /**
+   * Ask for password confirmation
+   * delete the report from DB
+   */
   change_status(report: Report): void {
     const password_dialog = this.dialogRef.open(PassPromptComponent);
     password_dialog.afterClosed().subscribe((obj) => {
