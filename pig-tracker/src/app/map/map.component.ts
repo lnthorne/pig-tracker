@@ -101,7 +101,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
       L.marker([lat, long])
         .addTo(this.layerGroup)
-        .bindPopup(`<b>${name}</b><br/> Cases Reported: ${number}`).openPopup;
+        .bindPopup(`<b>${name}</b><br/> Pigs Reported: ${number}`).openPopup;
     });
   }
 }

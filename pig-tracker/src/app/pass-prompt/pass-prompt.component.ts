@@ -17,7 +17,6 @@ import { PasswordService } from '../services/password.service';
 export class PassPromptComponent implements OnInit {
   form: FormGroup;
   matching: boolean = false;
-  passwd_key: string = 'Liam';
 
   constructor(
     private prompt: MatDialogRef<PassPromptComponent>,
@@ -42,7 +41,7 @@ export class PassPromptComponent implements OnInit {
     const password = control.value;
     console.log(password);
     // Hash password
-    if (password === 'Liam') return null;
+    if (password === 'OINK!!') return null;
     return { form_error: true };
   }
 
