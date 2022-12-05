@@ -8,6 +8,10 @@
     <th mat-header-cell *matHeaderCellDef>Breed</th>
     <td mat-cell *matCellDef="let report">{{ report.pig.breed }}</td>
   </ng-container>
+  <ng-container matColumnDef="pig_name">
+    <th mat-header-cell *matHeaderCellDef>Pig Name</th>
+    <td mat-cell *matCellDef="let report">{{ report.pig.name }}</td>
+  </ng-container>
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef>Reported By</th>
     <td mat-cell *matCellDef="let report">{{ report.person.name }}</td>

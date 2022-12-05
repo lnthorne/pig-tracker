@@ -33,8 +33,8 @@ export class ReportFormComponent implements OnInit {
     });
     const location = this.fb.group({
       name: ['', [Validators.required]],
-      longitude: ['', [Validators.required]],
-      latitude: ['', [Validators.required]],
+      longitude: ['', [Validators.required, Validators.pattern('^-?[0-9]*$')]],
+      latitude: ['', [Validators.required, Validators.pattern('^-?[0-9]*$')]],
     });
     this.form = this.fb.group({
       person: person,

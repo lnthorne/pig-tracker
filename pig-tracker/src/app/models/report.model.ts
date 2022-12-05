@@ -15,7 +15,7 @@ export class Report {
     this.person = person;
     this.location = location;
     this.notes = notes;
-    this.date = new Date().toDateString();
+    this.date = new Date().toLocaleString();
     this.report_id = uuid.v4();
   }
 }

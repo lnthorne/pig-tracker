@@ -12,6 +12,7 @@ export class MoreInfoComponent {
   displayedColumns: string[] = [
     'pid',
     'breed',
+    'pig_name',
     'name',
     'phone',
     'status',
