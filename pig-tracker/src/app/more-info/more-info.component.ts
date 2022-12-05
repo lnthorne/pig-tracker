@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Report } from '../models/report.model';
-import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-more-info',

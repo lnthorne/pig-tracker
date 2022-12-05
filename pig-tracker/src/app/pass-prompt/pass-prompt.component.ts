@@ -7,7 +7,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { PasswordService } from '../services/password.service';
 
 @Component({
   selector: 'app-pass-prompt',
@@ -20,8 +19,7 @@ export class PassPromptComponent implements OnInit {
 
   constructor(
     private prompt: MatDialogRef<PassPromptComponent>,
-    private fb: FormBuilder,
-    private ps: PasswordService
+    private fb: FormBuilder
   ) {
     this.form = this.fb.group({
       password: ['', [Validators.required, this.validate_passwd]],
